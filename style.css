@@ -242,3 +242,12 @@ html,body{overscroll-behavior:none}
   #settings{left:auto;right:10px;bottom:auto;border-radius:16px;border-bottom:1px solid var(--line);padding-bottom:14px}
   #settings:not([hidden]){animation:pop .28s var(--ease)}
 }
+
+/* Fix: give the book an explicit size so the pages are visible */
+.stage{position:relative;display:block;padding:0}
+#book{
+  position:absolute;top:var(--sy,6px);bottom:var(--sy,6px);left:var(--sx,24px);right:var(--sx,24px);
+  width:auto;height:auto;max-width:1700px;margin:0 auto;
+}
+@media (max-width:560px){.stage{--sx:8px}}
+@media (max-height:520px){.stage{--sx:8px;--sy:2px}}
