@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Reading Room</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+
+<main id="library-view">
+  <header class="top">
+    <div>
+      <h1>Reading Room</h1>
+      <p>Your PDFs, kept on this device only.</p>
+    </div>
+    <label class="btn primary">
+      Add PDF
+      <input id="file" type="file" accept="application/pdf,.pdf" multiple hidden>
+    </label>
+  </header>
+  <section id="shelf" aria-label="Your books"></section>
+</main>
+
+<section id="reader" hidden aria-label="Book reader">
+  <div class="reader-top">
+    <button id="back" class="btn" type="button">Library</button>
+    <h2 id="book-title"></h2>
+    <button id="fs" class="btn" type="button">Fullscreen</button>
+  </div>
+  <div class="stage"><div id="book"></div></div>
+  <div class="reader-bar">
+    <button id="prev" class="icon-btn" type="button" aria-label="Previous page">‹</button>
+    <input id="slider" type="range" min="1" max="1" value="1" aria-label="Jump to page">
+    <span id="label">1 / 1</span>
+    <button id="next" class="icon-btn" type="button" aria-label="Next page">›</button>
+  </div>
+</section>
+
+<div id="drop" hidden>Drop a PDF to add it to your shelf</div>
+<div id="busy" hidden><div class="spinner"></div><p id="busy-text"></p></div>
+<div id="toast" role="status" aria-live="polite"></div>
+
+</body>
+</html>
