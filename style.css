@@ -163,3 +163,82 @@ button{font:inherit;color:inherit}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
 }
+
+/* ======================================================
+   Responsive reader, settings panel, tones
+   ====================================================== */
+html,body{overscroll-behavior:none}
+#reader{
+  padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  overflow:hidden;
+}
+.stage{overflow:hidden}
+#book{width:min(1700px,100%);height:100%;touch-action:pan-y}
+.reader-top .btn{white-space:nowrap}
+.reader-top,.reader-bar{transition:opacity .35s,transform .35s var(--ease)}
+#reader.ui-hidden .reader-top{opacity:0;transform:translateY(-100%);pointer-events:none}
+#reader.ui-hidden .reader-bar{opacity:0;transform:translateY(100%);pointer-events:none}
+.icon-btn.small{width:34px;height:34px;font-size:15px}
+
+/* page tones */
+#book[data-tone="sepia"] .page{background:#f1e4c8}
+#book[data-tone="sepia"] .page canvas{filter:sepia(.55) contrast(.95) brightness(.97)}
+#book[data-tone="night"] .page{background:#16181b}
+#book[data-tone="night"] .page canvas{filter:invert(.92) hue-rotate(180deg) contrast(.92) brightness(.95)}
+
+/* settings panel */
+#settings{
+  position:absolute;z-index:20;top:62px;right:14px;
+  width:min(360px,calc(100vw - 28px));max-height:calc(100dvh - 90px);overflow:auto;
+  background:var(--ink-2);border:1px solid var(--line);border-radius:16px;padding:18px;
+  box-shadow:0 24px 60px rgba(0,0,0,.55);
+}
+#settings:not([hidden]){animation:pop .28s var(--ease)}
+@keyframes pop{from{opacity:0;transform:translateY(-10px) scale(.97)}}
+.set-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;font-family:var(--serif);font-size:19px}
+.set-row{display:grid;gap:8px;margin-bottom:16px}
+.set-row:last-child{margin-bottom:0}
+.set-label{font-size:13px;font-weight:600}
+.set-row small{color:var(--muted);font-size:12px;line-height:1.4}
+.seg{display:flex;gap:3px;padding:3px;background:var(--ink);border:1px solid var(--line);border-radius:11px}
+.seg button{
+  flex:1;border:0;background:none;border-radius:8px;padding:9px 6px;min-height:38px;
+  font-size:13px;color:var(--muted);cursor:pointer;transition:background .2s,color .2s;
+}
+.seg button:hover{color:var(--text)}
+.seg button[aria-pressed="true"]{background:var(--amber);color:#2a1d06;font-weight:600}
+#volume{width:100%;accent-color:var(--amber);height:24px}
+#volume:disabled{opacity:.4}
+
+/* phones: settings become a bottom sheet */
+@media (max-width:560px){
+  #settings{
+    top:auto;bottom:0;left:0;right:0;width:auto;max-height:78dvh;
+    border-radius:20px 20px 0 0;border-bottom:0;
+    padding-bottom:calc(18px + env(safe-area-inset-bottom));
+  }
+  #settings:not([hidden]){animation:sheet .32s var(--ease)}
+  .reader-top{gap:8px;padding:8px 10px}
+  .reader-top .btn{padding:9px 12px;font-size:13px}
+  .reader-top h2{display:none}
+  .reader-top .btn#back{margin-right:auto}
+  .reader-bar{gap:10px;padding:6px 12px 12px}
+  #label{min-width:70px;font-size:13px}
+}
+@keyframes sheet{from{transform:translateY(100%)}}
+
+/* short screens (phones in landscape, small windows) */
+@media (max-height:520px){
+  .reader-top{padding:5px 12px}
+  .reader-top h2{display:none}
+  .reader-top .btn#back{margin-right:auto}
+  .reader-top .btn{padding:6px 12px;font-size:13px}
+  .stage{padding:2px 8px}
+  .reader-bar{padding:3px 12px 6px;gap:10px}
+  .icon-btn{width:34px;height:34px;font-size:18px}
+  #settings{top:48px;max-height:calc(100dvh - 58px);width:min(340px,calc(100vw - 28px))}
+}
+@media (max-height:520px) and (max-width:900px){
+  #settings{left:auto;right:10px;bottom:auto;border-radius:16px;border-bottom:1px solid var(--line);padding-bottom:14px}
+  #settings:not([hidden]){animation:pop .28s var(--ease)}
+}
