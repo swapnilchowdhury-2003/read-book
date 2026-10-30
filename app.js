@@ -162,7 +162,7 @@ async function addFile(file) {
     toast("Added to your shelf");
   } catch (e) {
     console.error(e);
-    toast("This PDF could not be read. It may be damaged or password protected");
+    toast("Could not add this PDF: " + (e && e.message ? e.message : e));
   }
   busy(false);
 }
@@ -345,8 +345,8 @@ function buildFlip(start) {
     mobileScrollSupport: false,
     startPage: Math.max(0, Math.min(start, total - 1))
   });
-  holder.style.minWidth = "0";
   flip.loadFromHTML(makePages());
+  holder.style.minWidth = "0";   // must come after loadFromHTML, which sets its own min-width
 
   let dragSound = false;
   flip.on("flip", e => onPage(e.data));
@@ -396,7 +396,7 @@ async function openBook(id) {
     poke();
   } catch (e) {
     console.error(e);
-    toast("Could not open this book");
+    toast("Could not open this book: " + (e && e.message ? e.message : e));
   }
   busy(false);
 }
